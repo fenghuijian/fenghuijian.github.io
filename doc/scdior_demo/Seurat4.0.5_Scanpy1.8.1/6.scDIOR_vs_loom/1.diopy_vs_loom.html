@@ -14607,8 +14607,8 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reading loom file </span>
-<span class="n">adata_py</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_loom</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_loom.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
-<span class="n">adata_py</span>
+<span class="n">adata_loom</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_loom</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_loom.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+<span class="n">adata_loom</span>
 </pre></div>
 
      </div>
@@ -14643,15 +14643,59 @@ a.anchor-link {
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Saving-data-by-diopy">Saving data by diopy<a class="anchor-link" href="#Saving-data-by-diopy">&#182;</a></h1>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># loompy can connect the loom file</span>
-<span class="n">adata_loom</span> <span class="o">=</span> <span class="n">loompy</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_loom.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
-<span class="n">adata_loom</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diopy</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">write_h5</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">,</span> 
+                      <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_diopy.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Reading-data-by-diopy">Reading data by diopy<a class="anchor-link" href="#Reading-data-by-diopy">&#182;</a></h1>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_h5</span> <span class="o">=</span> <span class="n">diopy</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_diopy.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="H5-format-is-superior-to-loom-files-for-storing-categorical-data-type.">H5 format is superior to loom files for storing categorical data type.<a class="anchor-link" href="#H5-format-is-superior-to-loom-files-for-storing-categorical-data-type.">&#182;</a></h1><p>The h5 file and h5ad file have fidelity for the storage of categorical data type but loom file don not have this performance.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># h5ad file</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;clusters_coarse&#39;</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14667,110 +14711,26 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<p>27998 rows, 100 columns, 3 layers<br/>(showing up to 10x10)<br/>../../result/6.scDIOR_vs_loom/adata_loom.loom<br/>name: <em>20211112T111355.489737Z</em><br/>name: <em>3.0.0</em><br/><table><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>G2M_score</strong></td><td>-0.2838391661643982</td><td>-0.22876502573490143</td><td>0.9334353804588318</td><td>-0.12490838766098022</td><td>-0.20307564735412598</td><td>-0.1536720097064972</td><td>-0.22387848794460297</td><td>-0.2890028655529022</td><td>-0.24116989970207214</td><td>-0.2157433182001114</td><td>...</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>S_score</strong></td><td>0.021685242652893066</td><td>-0.23524358868598938</td><td>-0.06590715050697327</td><td>-0.21863657236099243</td><td>-0.0072061121463775635</td><td>-0.147121861577034</td><td>0.2936893105506897</td><td>-0.25566336512565613</td><td>-0.21174661815166473</td><td>-0.22301223874092102</td><td>...</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>X_pca</strong></td><td>[-1.2363613  -4.88398     8.364927   -4.784042   -9.109004   -1.8940063
-  2.7943528   1.0598733   2.0048747  -1.8561938  -2.1922555   0.6783214
- -0.24930914  0.9339467  -2.92668    -0.238451   -0.6910576   0.90967387
- -0.7925636  -0.61522424  1.4748536  -0.5303853   1.8019911  -1.7833542
- -0.05846383 -0.9230619  -0.20843512  0.49934754 -0.08042669 -1.1244035
-  0.05473366  0.2902412  -1.5721216   0.4564587   0.57665133 -0.9273463
-  0.03567575 -0.17682089 -1.056592   -0.3094083  -0.6170814   0.4642902
- -0.93226844 -0.04166998 -0.4528573   1.5840083  -0.24669065  0.7298393
- -0.5326214   0.42722118]</td><td>[ -0.18979813  -3.9835865   10.571155    -5.6177087  -10.145778
-  -2.0555913    4.177693     1.5610193    2.52819      0.22001375
-  -1.6217134   -0.8262777    0.45847005   1.7230034    2.412214
-   0.15484203  -1.1055288    0.17563206  -3.022394     0.11259094
-   0.9870558    1.7369565   -2.0459905   -2.5214539   -1.5840323
-   0.10487296  -0.5010413    0.5114029    3.2377548    1.4542346
-   0.65966237  -0.3074261    0.55889994  -1.8230609    3.0545833
-   0.3260122   -0.34244725   0.8743735    0.32497147   0.82689494
-   1.1134936   -1.8518558    1.0962172   -0.47047362  -0.24190946
-  -0.35259855   0.71694446  -0.92398417  -0.571716    -0.28274015]</td><td>[ 0.44718063 -6.6121926  -1.2289885  -0.2067689  -4.5101223   2.244967
- 10.23506     0.02620155  2.5774877   4.038987   -1.1914285   1.0149999
-  2.5854068   1.3668756   0.28100914 -1.9598024   0.17586727 -1.116207
-  0.5685009   0.46911842  0.8594117   1.1238635   2.551418   -1.1079817
- -1.2481039  -1.1530169   0.09053677 -0.70617944  0.49316183  0.22581266
-  0.343777   -0.7356339   0.18328385 -1.300114    0.8250708  -1.4814084
- -1.0110081   0.19431569 -1.4024067   0.19439626 -0.40772977 -0.25072905
-  0.6505366  -0.6574295  -0.16185862 -1.0599608   0.3503416  -0.16349833
- -0.21769512 -0.39235896]</td><td>[-9.5653763e+00  1.3059265e+01 -6.5480328e+00 -5.0987983e+00
- -2.8226416e+00  1.3625656e-03  8.8789737e-01 -6.6586466e+00
- -3.2908754e+00 -1.3875374e-01 -1.9731046e+00  9.3424063e+00
- -6.2909704e-01  3.8572556e-01  6.7120928e-01 -5.7071853e-01
-  9.2910582e-01  2.7362168e+00 -6.4660442e-01 -9.8296911e-01
-  1.8443158e-01  8.3219297e-02  2.7761552e-01  2.4328442e-01
-  8.5208094e-01 -1.4465472e+00  1.5060692e-01 -4.3434614e-01
- -5.3573436e-01  1.0204413e+00 -8.0455773e-02 -4.1364664e-01
- -2.7174354e-01  2.9595965e-01 -2.1505040e-01  7.6184034e-01
- -4.6368346e-01 -1.9369224e-01  1.9919112e+00 -1.0581229e+00
-  4.3016989e-02  8.8205181e-02 -2.4882206e-01  7.3908442e-01
-  1.0502199e+00  7.1350747e-01  4.3911088e-01 -6.8184817e-01
-  9.1288155e-01  6.5854329e-01]</td><td>[-9.039792    4.5826316   6.8650055  11.892311    1.1748188  -0.6510711
-  0.5094218  -4.543122   -1.0885895  -1.3830365  -0.4004738   0.05990588
-  0.609965   -0.97923046 -1.9527727   1.1809033   0.18003976 -1.0787735
- -0.16284777  0.32712132  1.4108756   1.1160507   0.24130891  0.13506746
- -0.19184776 -0.51537275 -0.7095454   0.45973918 -1.6347016   0.8539144
- -1.3003703   1.1656324  -0.01307456 -0.26106247  0.9163169   2.0426655
- -0.5718898  -0.72718024 -1.1352586  -0.513021   -0.55323154  0.39165524
- -0.48006243  0.17291713  1.1007854   0.37507662  0.7403216  -1.5225283
-  0.73326147 -0.20523785]</td><td>[-2.5790014  -4.1420984   5.8617682  -2.4753284  -8.997534   -1.8289582
-  2.74127     0.4313415   1.7216566  -0.18287565 -1.857447   -0.34598482
- -0.3243187   0.46908024 -1.1565487   2.079692   -0.73960835  1.7259344
- -3.802041    0.12595631  0.9830582  -0.43586951  1.6162689  -0.74089795
- -1.7858062  -0.49388134 -0.5689705  -0.04868281  1.0858067   0.36010844
-  0.6894581  -0.16634053 -1.94242    -0.13323303  2.3166783   0.5626484
-  0.11386964 -0.13598438  0.09671406 -0.6525089  -0.01220655 -1.2441574
-  0.88829786  0.11944239  0.8869404   0.9344953  -1.1986754  -1.2507917
-  0.09031602  1.4282879 ]</td><td>[-1.4807413e+00 -5.3037939e+00  7.5432835e+00 -3.0663121e+00
- -9.4546900e+00 -4.0921023e-01  2.7946641e+00  2.0342536e+00
-  3.0637496e+00 -2.4041371e+00 -1.2956887e+00  4.9524534e-01
-  1.3708208e+00  6.1422253e-01 -2.3883905e+00  1.2262505e+00
- -2.4969241e-01 -1.7896167e+00 -1.7627485e+00  8.1098074e-01
-  9.9168020e-01  7.6427746e-01  2.9257233e+00 -1.2804755e+00
-  1.0202065e+00 -5.2831531e-01 -5.3437376e-01  5.2507657e-01
-  5.1560071e-03  1.1697824e+00  9.7865230e-01 -1.6239157e+00
- -6.6178888e-01  1.0397696e+00  5.0461060e-01 -9.0625852e-01
- -2.1626829e-01 -2.0935064e-02 -6.0757166e-01  3.6090583e-01
-  3.3221081e-01 -4.9940446e-01  9.1717577e-01  6.2936256e-03
- -6.0072535e-01  4.6355936e-01 -1.6907735e-01  1.2646300e-01
- -5.3643310e-01 -1.7208065e+00]</td><td>[-1.59661694e+01  1.15300150e+01  1.84551442e+00  2.99665570e+00
-  2.36415982e+00  5.81371784e-01  2.36308885e+00  7.70105076e+00
-  1.00012684e+00 -1.24521410e+00 -2.04354078e-01  9.45938110e-01
- -1.50158715e+00  9.64574754e-01 -5.41018784e-01  1.30903661e+00
-  8.71255696e-01 -2.15204644e+00  1.40652597e-01  1.48852432e+00
-  2.58595061e+00 -1.33067715e+00 -1.46439421e+00  1.21846393e-01
-  1.45149910e+00  1.14976227e+00  1.28168356e+00  8.22700560e-01
-  5.50547063e-01 -9.01073217e-03  1.01136243e+00 -5.81581235e-01
- -1.08526099e+00  1.99958456e+00 -1.25803089e+00 -4.34738517e-01
- -1.01129249e-01  2.38671923e+00  2.66188669e+00 -2.24660635e+00
-  1.64275253e+00 -6.06386542e-01  2.85628855e-01 -7.40167022e-01
-  5.60970068e-01 -1.11247346e-01  1.31137741e+00  1.30960286e-01
- -6.72405481e-01 -1.36192298e+00]</td><td>[-1.1117231e+01  1.2326818e+01 -8.1294508e+00 -4.4444623e+00
- -2.7054322e+00 -2.4875384e-03 -1.0120981e+00 -5.2026081e+00
- -1.0225579e+00 -2.6876101e-01  8.5879320e-01  3.0000648e-01
- -7.4579351e-02  1.0561445e+00 -2.6120045e+00  3.3655441e-01
- -1.9880459e+00 -2.3054397e+00  1.7958373e-02  5.2999580e-01
-  1.1502134e+00 -4.8094642e-01  1.2382739e+00 -3.7639648e-01
-  1.2700394e-01  1.4662518e-01  2.8396529e-01  7.7035278e-02
- -1.1735910e-01  2.8829828e-01  1.6525962e+00  2.7345393e+00
- -9.6725899e-01  1.2253144e+00 -7.9036731e-01  1.1212285e+00
- -3.4668037e-01 -3.6810747e-01 -2.8627756e-01  1.7543611e-01
-  3.6464974e-01 -1.3866808e+00 -1.5128303e-01  8.9500493e-01
-  5.9441245e-01  3.5412151e-01 -8.2195801e-01 -9.0282953e-01
-  1.3832995e+00 -9.2494297e-01]</td><td>[-11.959029    13.882103    -4.1404233   -4.950962    -1.6910845
-   0.670802    -0.08512285  -5.652972     1.9395678   -0.06348281
-   0.45032433  -6.563962     1.7297168    2.7235532    0.43070027
-  -0.0746101   -3.4141219   -3.9499836   -2.303923     1.0192503
-   2.0578513   -1.06163     -0.42861143   0.8571632    0.04222817
-   0.42602712  -0.37911263  -2.1002393    0.7825376    0.3255866
-   2.053506     1.6420053   -0.16548108  -0.59608907  -2.4072952
-   1.0247148   -0.02901766  -0.11758401   0.6650405   -0.2763819
-  -0.42911136  -1.026138    -0.82711613  -1.4200658   -0.17783283
-  -1.0761122   -0.31151178  -0.9995868    1.5350949   -0.4088934 ]</td><td>...</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>X_umap</strong></td><td>[-10.039596     0.11554109]</td><td>[-10.405557   -1.2798072]</td><td>[-10.066669   5.429803]</td><td>[2.8754265 4.3484554]</td><td>[-2.5133247 -3.7956867]</td><td>[-9.513916    0.12436558]</td><td>[-10.03126      0.21987501]</td><td>[ 4.132414  -3.0179737]</td><td>[5.995211  3.8536663]</td><td>[7.1247864 4.9113374]</td><td>...</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>clusters</strong></td><td>Ngn3 low EP</td><td>Ductal</td><td>Ductal</td><td>Beta</td><td>Ngn3 high EP</td><td>Ductal</td><td>Ductal</td><td>Pre-endocrine</td><td>Alpha</td><td>Alpha</td><td>...</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>clusters_coarse</strong></td><td>Ngn3 low EP</td><td>Ductal</td><td>Ductal</td><td>Endocrine</td><td>Ngn3 high EP</td><td>Ductal</td><td>Ductal</td><td>Pre-endocrine</td><td>Endocrine</td><td>Endocrine</td><td>...</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td><strong>index</strong></td><td>TTCTACAGTACTCTCC</td><td>GGACGTCCAGGGAGAG</td><td>TGGACGCTCAGGTAAA</td><td>GTTTCTATCGTTACGA</td><td>CCGTACTTCCTTGGTC</td><td>CAAGGCCCAAAGCGGT</td><td>CTCGTCACAACTGCTA</td><td>GCAGTTACATTTCACT</td><td>CTCATTACAAGGCTCC</td><td>CACTCCACATCGTCGG</td><td>...</td></tr><tr><td><strong>highly_variable_genes</strong></td><td><strong>index</strong></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>...</td></tr><tr><td>False</td><td>Xkr4</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Gm37381</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Rp1</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Rp1-1</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Sox17</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Gm37323</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>False</td><td>Mrpl15</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>1.0</td><td>0.0</td><td>1.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Rgs20</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>nan</td><td>Npbwr1</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>False</td><td>4732440D04Rik</td><td>&nbsp;</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>1.0</td><td>0.0</td><td>0.0</td><td>...</td></tr><tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr></table>
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>index
+TTCTACAGTACTCTCC     Ngn3 low EP
+GGACGTCCAGGGAGAG          Ductal
+TGGACGCTCAGGTAAA          Ductal
+GTTTCTATCGTTACGA       Endocrine
+CCGTACTTCCTTGGTC    Ngn3 high EP
+                        ...     
+AGGGAGTAGGTCATCT       Endocrine
+CATCGGGTCATTTGGG       Endocrine
+GTCTCGTGTCCCTTGT    Ngn3 high EP
+CACACCTCATTGTGCA    Ngn3 high EP
+ACTGCTCAGTTACCCA       Endocrine
+Name: clusters_coarse, Length: 100, dtype: category
+Categories (5, object): [&#39;Ductal&#39;, &#39;Ngn3 low EP&#39;, &#39;Ngn3 high EP&#39;, &#39;Pre-endocrine&#39;, &#39;Endocrine&#39;]</pre>
 </div>
 
 </div>
@@ -14779,24 +14739,104 @@ a.anchor-link {
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Saving-data-by-diopy">Saving data by diopy<a class="anchor-link" href="#Saving-data-by-diopy">&#182;</a></h1>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">diopy</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">write_h5</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">,</span> 
-                      <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_diopy.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># h5 file</span>
+<span class="n">adata_h5</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;clusters_coarse&#39;</span><span class="p">]</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>index
+TTCTACAGTACTCTCC     Ngn3 low EP
+GGACGTCCAGGGAGAG          Ductal
+TGGACGCTCAGGTAAA          Ductal
+GTTTCTATCGTTACGA       Endocrine
+CCGTACTTCCTTGGTC    Ngn3 high EP
+                        ...     
+AGGGAGTAGGTCATCT       Endocrine
+CATCGGGTCATTTGGG       Endocrine
+GTCTCGTGTCCCTTGT    Ngn3 high EP
+CACACCTCATTGTGCA    Ngn3 high EP
+ACTGCTCAGTTACCCA       Endocrine
+Name: clusters_coarse, Length: 100, dtype: category
+Categories (5, object): [&#39;Ductal&#39;, &#39;Ngn3 low EP&#39;, &#39;Ngn3 high EP&#39;, &#39;Pre-endocrine&#39;, &#39;Endocrine&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># loom file </span>
+<span class="n">adata_loom</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;clusters_coarse&#39;</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>0      Ngn3 low EP
+1           Ductal
+2           Ductal
+3        Endocrine
+4     Ngn3 high EP
+          ...     
+95       Endocrine
+96       Endocrine
+97    Ngn3 high EP
+98    Ngn3 high EP
+99       Endocrine
+Name: clusters_coarse, Length: 100, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14807,7 +14847,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">IPython</span>
@@ -14854,10 +14894,17 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip freeze
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>conda list <span class="p">|</span> grep scanpy
+<span class="o">!</span>conda list <span class="p">|</span> grep diopy
+<span class="o">!</span>conda list <span class="p">|</span> grep h5py
+<span class="o">!</span>conda list <span class="p">|</span> grep anndata
+<span class="o">!</span>conda list <span class="p">|</span> grep pandas
+<span class="o">!</span>conda list <span class="p">|</span> grep numpy
+<span class="o">!</span>conda list <span class="p">|</span> grep scipy
+<span class="o">!</span>conda list <span class="p">|</span> grep scvelo
 </pre></div>
 
      </div>
@@ -14877,160 +14924,15 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>alembic @ file:///home/conda/feedstock_root/build_artifacts/alembic_1633571415941/work
-anndata==0.7.8
-anyio @ file:///home/conda/feedstock_root/build_artifacts/anyio_1634574557707/work/dist
-argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1633990442615/work
-arrow==1.1.1
-async-generator==1.10
-attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1620387926260/work
-Babel @ file:///home/conda/feedstock_root/build_artifacts/babel_1619719576210/work
-backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
-backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
-bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
-blinker==1.4
-brotlipy==0.7.0
-certifi==2021.10.8
-certipy==0.1.3
-cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1625835293160/work
-chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093490430/work
-charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1626371162869/work
-click==8.0.3
-colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1602866480661/work
-conda==4.10.3
-conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231394280/work
-cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1634230276575/work
-custom-inherit==2.3.2
-cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
-debugpy @ file:///home/conda/feedstock_root/build_artifacts/debugpy_1627074852499/work
-decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1631346842025/work
-defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
-diopy==0.5.2
-entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1602701739019/work/dist/entrypoints-0.3-py2.py3-none-any.whl
-fbpca==1.0
-greenlet @ file:///home/conda/feedstock_root/build_artifacts/greenlet_1632928147418/work
-h5py==3.5.0
-idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1609836280497/work
-igraph @ file:///home/conda/feedstock_root/build_artifacts/python-igraph_1635510748377/work
-importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1630267471994/work
-importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1634604939720/work
-ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1634726336619/work/dist/ipykernel-6.4.2-py3-none-any.whl
-ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1632763767549/work
-ipython-genutils==0.2.0
-ipywidgets @ file:///home/conda/feedstock_root/build_artifacts/ipywidgets_1631590360471/work
-jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1610146791023/work
-Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1633656206378/work
-joblib @ file:///home/conda/feedstock_root/build_artifacts/joblib_1633637554808/work
-json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
-jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema_1634752161479/work
-jupyter @ file:///home/conda/feedstock_root/build_artifacts/jupyter_1611871900135/work
-jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1633454794268/work
-jupyter-console @ file:///home/conda/feedstock_root/build_artifacts/jupyter_console_1616560109969/work
-jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1631852756538/work
-jupyter-server @ file:///home/conda/feedstock_root/build_artifacts/jupyter_server_1633398189934/work
-jupyter-telemetry @ file:///home/conda/feedstock_root/build_artifacts/jupyter_telemetry_1605173804246/work
-jupyterhub @ file:///home/conda/feedstock_root/build_artifacts/jupyterhub-feedstock_1626468615117/work
-jupyterlab @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_1634741878908/work
-jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
-jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1632590716858/work
-jupyterlab-widgets @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_widgets_1631590465624/work
-kiwisolver @ file:///home/conda/feedstock_root/build_artifacts/kiwisolver_1635836691365/work
-leidenalg==0.8.8
-llvmlite==0.34.0
-loompy==3.0.6
-Mako @ file:///home/conda/feedstock_root/build_artifacts/mako_1629523042001/work
-mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1634161552529/work
-MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1621455677251/work
-matplotlib @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-suite_1632416634429/work
-matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
-mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1624941302223/work
-mock @ file:///home/conda/feedstock_root/build_artifacts/mock_1635819534735/work
-natsort==8.0.0
-nbclassic @ file:///home/conda/feedstock_root/build_artifacts/nbclassic_1631880505492/work
-nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1629120697898/work
-nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert_1632535919595/work
-nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1617383142101/work
-nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1617163391303/work
-networkit==9.0
-networkx==2.6.3
-nmslib==2.1.1
-notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1634668519289/work
-numba==0.51.2
-numexpr @ file:///home/conda/feedstock_root/build_artifacts/numexpr_1636286771429/work
-numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1636145332760/work
-numpy-groupies==0.9.14
-oauthlib @ file:///home/conda/feedstock_root/build_artifacts/oauthlib_1622563202229/work
-olefile @ file:///home/conda/feedstock_root/build_artifacts/olefile_1602866521163/work
-packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1625323647219/work
-pamela==1.0.0
-pandas==1.3.4
-pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
-parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1617148930513/work
-patsy @ file:///home/conda/feedstock_root/build_artifacts/patsy_1632667180946/work
-pexpect==4.8.0
-pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602535658641/work
-Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1636558800772/work
-prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1622586138406/work
-prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1634921890410/work
-ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
-pybind11==2.6.1
-pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094800877/work
-pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
-pycurl==7.44.1
-Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1629119114968/work
-PyJWT @ file:///home/conda/feedstock_root/build_artifacts/pyjwt_1634405536383/work
-pynndescent==0.5.5
-pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1633192417276/work
-pyparsing==2.4.7
-pypng==0.0.20
-PyQt5==5.12.3
-PyQt5_sip==4.19.18
-PyQtChart==5.12
-PyQtWebEngine==5.12.1
-pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1610146798212/work
-PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291447907/work
-python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
-python-json-logger @ file:///home/conda/feedstock_root/build_artifacts/python-json-logger_1602545356084/work
-pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1633452062248/work
-pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1631793296765/work
-qtconsole @ file:///home/conda/feedstock_root/build_artifacts/qtconsole_1636431521760/work
-QtPy @ file:///home/conda/feedstock_root/build_artifacts/qtpy_1632440819550/work
-reportlab==3.6.1
-requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1626393743643/work
-requests-unixsocket==0.2.0
-ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943339799/work
-ruamel.yaml @ file:///home/conda/feedstock_root/build_artifacts/ruamel.yaml_1630314079431/work
-ruamel.yaml.clib @ file:///home/conda/feedstock_root/build_artifacts/ruamel.yaml.clib_1610146840614/work
-scanpy==1.8.1
-scikit-learn @ file:///home/conda/feedstock_root/build_artifacts/scikit-learn_1635240676030/work
-scipy @ file:///home/conda/feedstock_root/build_artifacts/scipy_1636410384154/work
-scvelo==0.2.4
-seaborn @ file:///home/conda/feedstock_root/build_artifacts/seaborn-split_1629095986539/work
-Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
-sinfo==0.3.4
-six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
-sniffio @ file:///home/conda/feedstock_root/build_artifacts/sniffio_1610318319305/work
-SQLAlchemy @ file:///home/conda/feedstock_root/build_artifacts/sqlalchemy_1634703857718/work
-statsmodels @ file:///home/conda/feedstock_root/build_artifacts/statsmodels_1636437173133/work
-stdlib-list==0.8.0
-tables @ file:///home/conda/feedstock_root/build_artifacts/pytables_1630027033879/work
-terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1631128159040/work
-testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1621261527237/work
-texttable @ file:///home/conda/feedstock_root/build_artifacts/texttable_1626204417032/work
-threadpoolctl @ file:///home/conda/feedstock_root/build_artifacts/threadpoolctl_1633102299089/work
-tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1610094706440/work
-toyplot==0.19.0
-tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1632160078689/work
-traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1630423529112/work
-typing-extensions==3.10.0.2
-umap-learn==0.5.2
-urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1632350318291/work
-wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
-webencodings==0.5.1
-websocket-client @ file:///home/conda/feedstock_root/build_artifacts/websocket-client_1610127644879/work
-widgetsnbextension @ file:///home/conda/feedstock_root/build_artifacts/widgetsnbextension_1635456203523/work
-xlrd==1.2.0
-zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1633302054558/work
+<pre>scanpy                    1.8.1                    pypi_0    pypi
+diopy                     0.5.2                    pypi_0    pypi
+h5py                      3.5.0                    pypi_0    pypi
+anndata                   0.7.8                    pypi_0    pypi
+pandas                    1.3.4            py38h43a58ef_1    conda-forge
+numpy                     1.21.4           py38he2449b9_0    conda-forge
+numpy-groupies            0.9.14                   pypi_0    pypi
+scipy                     1.7.2            py38h56a6a73_0    conda-forge
+scvelo                    0.2.4                    pypi_0    pypi
 </pre>
 </div>
 </div>
