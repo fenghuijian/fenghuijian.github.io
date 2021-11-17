@@ -14512,7 +14512,13 @@ a.anchor-link {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="The-h5-file-is-more-stable-in-data-IO-compared-to-loom-file-(data-from-Seurat-and-SingleCellExperiment-to-Scanpy)">The h5 file is more stable in data IO compared to loom file (data from Seurat and SingleCellExperiment to Scanpy)<a class="anchor-link" href="#The-h5-file-is-more-stable-in-data-IO-compared-to-loom-file-(data-from-Seurat-and-SingleCellExperiment-to-Scanpy)">&#182;</a></h1><p>Even with cross-platform data IO, h5 has fidelity to categorical (factor) data.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
@@ -14751,15 +14757,21 @@ Loading required package: rtracklayer
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Downloading-data">Downloading data<a class="anchor-link" href="#Downloading-data">&#182;</a></h1>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># set path </span>
-<span class="n">datafile</span> <span class="o">=</span> <span class="s">&#39;../../data/6.scDIOR_vs_loom/&#39;</span>
-<span class="n">resultfile</span> <span class="o">=</span> <span class="s">&#39;../../result/6.scDIOR_vs_loom/&#39;</span>
+<div class=" highlight hl-r"><pre><span></span><span class="nf">download.file</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/6.scDIOR_vs_loom/adata_seurat.rds&#39;</span><span class="p">,</span>
+              <span class="n">destfile</span> <span class="o">=</span> <span class="s">&#39;./adata_seurat.rds&#39;</span><span class="p">)</span>
+<span class="nf">download.file</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/6.scDIOR_vs_loom/adata_sce.rds&#39;</span><span class="p">,</span>
+              <span class="n">destfile</span> <span class="o">=</span> <span class="s">&#39;./adata_sce.rds&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14778,8 +14790,8 @@ Loading required package: rtracklayer
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">adata</span> <span class="o">=</span> <span class="nf">readRDS</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">datafile</span><span class="p">,</span> <span class="s">&#39;adata_seurat.rds&#39;</span><span class="p">))</span>
-<span class="n">adata</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">adata_seurat</span> <span class="o">=</span> <span class="nf">readRDS</span><span class="p">(</span><span class="s">&#39;./adata_seurat.rds&#39;</span><span class="p">)</span>
+<span class="n">adata_seurat</span>
 </pre></div>
 
      </div>
@@ -14802,8 +14814,8 @@ Loading required package: rtracklayer
 
 <div class="jp-RenderedText jp-OutputArea-output " data-mime-type="text/plain">
 <pre>An object of class Seurat 
-83994 features across 100 samples within 3 assays 
-Active assay: RNA (27998 features, 0 variable features)
+600 features across 100 samples within 3 assays 
+Active assay: RNA (200 features, 0 variable features)
  2 other assays present: spliced, unspliced
  2 dimensional reductions calculated: pca, umap</pre>
 </div>
@@ -14821,7 +14833,7 @@ Active assay: RNA (27998 features, 0 variable features)
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Saving the loom file by the SeuratDisk for Seurat object</span>
-<span class="nf">SaveLoom</span><span class="p">(</span><span class="n">object</span> <span class="o">=</span> <span class="n">adata</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">resultfile</span><span class="p">,</span> <span class="s">&#39;adata_seurat.loom&#39;</span><span class="p">))</span>
+<span class="nf">SaveLoom</span><span class="p">(</span><span class="n">object</span> <span class="o">=</span> <span class="n">adata_seurat</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">&#39;./adata_seurat_loom.loom&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14878,7 +14890,7 @@ Adding row attribute Gene
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-r"><pre><span></span><span class="n">adata_sce</span> <span class="o">=</span> <span class="nf">readRDS</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">datafile</span><span class="p">,</span> <span class="s">&#39;adata_sce.rds&#39;</span><span class="p">))</span>
+<div class=" highlight hl-r"><pre><span></span><span class="n">adata_sce</span> <span class="o">=</span> <span class="nf">readRDS</span><span class="p">(</span><span class="s">&#39;./adata_sce.rds&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14893,7 +14905,7 @@ Adding row attribute Gene
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="n">scle</span> <span class="o">=</span> <span class="nf">SingleCellLoomExperiment</span><span class="p">(</span><span class="n">adata_sce</span><span class="p">)</span>
-<span class="nf">export</span><span class="p">(</span><span class="n">scle</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">resultfile</span><span class="p">,</span> <span class="s">&#39;adata_sce.loom&#39;</span><span class="p">))</span>
+<span class="nf">export</span><span class="p">(</span><span class="n">scle</span><span class="p">,</span> <span class="s">&#39;./adata_sce_loom.loom&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14913,8 +14925,8 @@ Adding row attribute Gene
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># seurat</span>
-<span class="nf">write_h5</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">adata</span><span class="p">,</span> 
-         <span class="n">file</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">resultfile</span><span class="p">,</span> <span class="s">&#39;adata_dior_seurat.h5&#39;</span><span class="p">))</span>
+<span class="nf">write_h5</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">adata_seurat</span><span class="p">,</span> 
+         <span class="n">file</span> <span class="o">=</span> <span class="s">&#39;./adata_seurat_dior.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14930,7 +14942,7 @@ Adding row attribute Gene
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># singlecellexperiment</span>
 <span class="nf">write_h5</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">adata_sce</span><span class="p">,</span> 
-         <span class="n">file</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">resultfile</span><span class="p">,</span> <span class="s">&#39;adata_dior_sce.h5&#39;</span><span class="p">),</span>
+         <span class="n">file</span> <span class="o">=</span> <span class="s">&#39;./adata_sce_dior.h5&#39;</span><span class="p">,</span>
          <span class="n">object.type</span> <span class="o">=</span> <span class="s">&#39;singlecellexperiment&#39;</span> <span class="p">)</span>
 </pre></div>
 

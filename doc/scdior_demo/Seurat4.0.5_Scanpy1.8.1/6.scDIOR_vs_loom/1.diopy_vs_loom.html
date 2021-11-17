@@ -14512,7 +14512,13 @@ a.anchor-link {
     </script>
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="The-h5-file-is-superior-to-loom-file-in-data-structure-design.">The h5 file is superior to loom file in data structure design.<a class="anchor-link" href="#The-h5-file-is-superior-to-loom-file-in-data-structure-design.">&#182;</a></h1><p>The h5 file has the ability to save and transform categorical data accurately compared to loom file.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
@@ -14540,24 +14546,51 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Loading-data">Loading data<a class="anchor-link" href="#Loading-data">&#182;</a></h1>
+<h1 id="Downloading-data">Downloading data<a class="anchor-link" href="#Downloading-data">&#182;</a></h1>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set path </span>
-<span class="n">datafile</span> <span class="o">=</span> <span class="s1">&#39;../../data/6.scDIOR_vs_loom/&#39;</span>
-<span class="n">resultfile</span> <span class="o">=</span> <span class="s1">&#39;../../result/6.scDIOR_vs_loom&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">resultfile</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">resultfile</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>wget -N <span class="s1">&#39;https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/6.scDIOR_vs_loom/adata_scanpy.h5ad&#39;</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>--2021-11-17 04:02:15--  https://fenghuijian.github.io/doc/scdior_demo/Seurat4.0.5_Scanpy1.8.1/6.scDIOR_vs_loom/adata_scanpy.h5ad
+Resolving fenghuijian.github.io (fenghuijian.github.io)... 185.199.108.153, 185.199.110.153, 185.199.111.153, ...
+Connecting to fenghuijian.github.io (fenghuijian.github.io)|185.199.108.153|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 131288 (128K) [application/octet-stream]
+Saving to: ‘adata_scanpy.h5ad’
+
+adata_scanpy.h5ad   100%[===================&gt;] 128.21K  --.-KB/s    in 0.03s   
+
+2021-11-17 04:02:16 (3.77 MB/s) - ‘adata_scanpy.h5ad’ saved [131288/131288]
+
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14567,7 +14600,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reading data</span>
-<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_scanpy.h5ad&#39;</span><span class="o">%</span><span class="k">datafile</span>)
+<span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;./adata_scanpy.h5ad&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14587,7 +14620,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># saving the loom file</span>
-<span class="n">adata</span><span class="o">.</span><span class="n">write_loom</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_loom.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>, write_obsm_varm=True)
+<span class="n">adata</span><span class="o">.</span><span class="n">write_loom</span><span class="p">(</span><span class="s1">&#39;./adata_scanpy_loom.loom&#39;</span><span class="p">,</span> <span class="n">write_obsm_varm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14607,7 +14640,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># reading loom file </span>
-<span class="n">adata_loom</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_loom</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_loom.loom&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+<span class="n">adata_loom</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">read_loom</span><span class="p">(</span><span class="s1">&#39;./adata_scanpy_loom.loom&#39;</span><span class="p">)</span>
 <span class="n">adata_loom</span>
 </pre></div>
 
@@ -14630,7 +14663,7 @@ a.anchor-link {
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>AnnData object with n_obs × n_vars = 100 × 27998
+<pre>AnnData object with n_obs × n_vars = 100 × 200
     obs: &#39;G2M_score&#39;, &#39;S_score&#39;, &#39;clusters&#39;, &#39;clusters_coarse&#39;, &#39;index&#39;
     var: &#39;highly_variable_genes&#39;, &#39;index&#39;
     obsm: &#39;X_pca&#39;, &#39;X_umap&#39;
@@ -14655,7 +14688,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">diopy</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">write_h5</span><span class="p">(</span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">,</span> 
-                      <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_diopy.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+                      <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;./adata_scanpy_diopy.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14674,7 +14707,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_h5</span> <span class="o">=</span> <span class="n">diopy</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/adata_diopy.h5&#39;</span><span class="o">%</span><span class="k">resultfile</span>)
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">adata_h5</span> <span class="o">=</span> <span class="n">diopy</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;./adata_scanpy_diopy.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
